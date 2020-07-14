@@ -15,7 +15,7 @@ const UserImage = ({data}) =>{
     .catch(error => {
       console.log('ERROR: ', error)
   })
-  }, [])
+  }, [data])
 
   if (loading) {
     return (

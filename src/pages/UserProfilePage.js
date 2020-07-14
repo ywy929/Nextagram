@@ -19,7 +19,7 @@ const UserProfilePage = () =>{
     .catch(error => {
       console.log('ERROR: ', error)
     })
-  }, [])
+  }, [id])
   
   
   useEffect(() => {
@@ -31,7 +31,7 @@ const UserProfilePage = () =>{
     .catch(error => {
       console.log('ERROR: ', error)
     })
-  }, [])
+  }, [id])
 
   if (loading) {
     return (
