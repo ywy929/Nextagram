@@ -2,6 +2,7 @@ import React,{useState, useEffect} from "react"
 import axios from 'axios'
 import '../App.css';
 import LoadingIndicator from "../components/LoadingIndicator"
+import { Link } from 'react-router-dom';
 
 const MyProfilePage = ({jwt, loggedIn}) =>{
 
@@ -42,7 +43,7 @@ const MyProfilePage = ({jwt, loggedIn}) =>{
     })
   }, [jwt])
 
-
+  
   if (loading) {
     return (
     <LoadingIndicator width="100px" height="100px" color="	#89CFF0" />
@@ -54,7 +55,7 @@ const MyProfilePage = ({jwt, loggedIn}) =>{
         <img className="profileInfoImg" src={userProfile.profile_picture} alt=""/>
         <div className="profileInfoDes">
           <h2>@{userProfile.username}</h2>
-          <a href="/upload">Upload a picture!</a>
+          <Link to="/upload">Upload a picture!</Link>
         </div>        
       </div>
       <div className="profileCarousel">

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import '../App.css';
 import axios from 'axios';
 import { Button, Form, FormGroup, Input, FormText, Card, CardImg, CardTitle} from 'reactstrap';
+import {useHistory} from 'react-router-dom';
 
 const UploadPage = ({jwt}) => {
   const [imageFile, setImageFile] = useState(null)
@@ -10,6 +11,7 @@ const UploadPage = ({jwt}) => {
     setPreviewImage(URL.createObjectURL(e.target.files[0]))
     setImageFile(e.target.files[0])
   }
+  let redirect = useHistory()
   const handleUpload = (e) =>{
     e.preventDefault()
       // Formdata object to hold the image file to send to the server
@@ -24,6 +26,7 @@ const UploadPage = ({jwt}) => {
           setMessage("Image Uploaded Successfully!")
           setPreviewImage(null)
           setImageFile(null)
+          redirect.push(`/profile`)
       }
     })
     .catch(error => {
@@ -35,7 +38,7 @@ const UploadPage = ({jwt}) => {
   const [message, setMessage] = useState('')
 
   useEffect(()=>{
-    document.title = "Nextagram"
+    document.title = "Upload Your Image"
   })
     return(
       <>
