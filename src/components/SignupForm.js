@@ -100,7 +100,7 @@ const SignUpForm = (props) => {
     usernameInputField = <><Input type="text" name="username" id="username" onChange={handleUsernameInput} value={usernameInput} placeholder="" invalid autoFocus/><FormText color="danger">Username is taken!</FormText></>
   }
   
-  let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  let mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   const handleEmailInput = e => {
     const newEmail = e.target.value
     setEmail(newEmail)    

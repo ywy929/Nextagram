@@ -25,7 +25,7 @@ const MyProfilePage = ({jwt, loggedIn}) =>{
       console.log('ERROR: ', error)
       setLoading(false)
     })
-  }, [])
+  }, [jwt])
 
   useEffect(() => {
     axios.get(`https://insta.nextacademy.com/api/v1/images/me`,{
@@ -40,7 +40,7 @@ const MyProfilePage = ({jwt, loggedIn}) =>{
     .catch(error => {
       console.log('ERROR: ', error)
     })
-  }, [])
+  }, [jwt])
   
 
   if (loading) {

@@ -3,10 +3,6 @@ import {
   Navbar,
   Nav,
   NavLink,
-  FormGroup,
-  Input,
-  Button,
-  Form
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +12,12 @@ const Navibar = ({toggleLogin, toggleSignUp, loggedIn, logout}) => {
       <Navbar color="white" light expand="md" className="d-flex justify-content-between align-items-center">
         <div>
           <Link className="homeLink" to="/">Nextagram</Link>
-          <Link className="profileLink" to="/profile">My Profile</Link>
+          {
+            loggedIn
+            ? <Link className="profileLink" to="/profile">My Profile</Link>:
+            null
+          }
+          
         </div>      
         
         <Nav>    

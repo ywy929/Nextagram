@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import '../App.css';
 import axios from 'axios';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormText, Card, CardImg, CardTitle} from 'reactstrap';
+import { Button, Form, FormGroup, Input, FormText, Card, CardImg, CardTitle} from 'reactstrap';
 
 const UploadPage = ({jwt}) => {
   const [imageFile, setImageFile] = useState(null)
@@ -10,7 +10,6 @@ const UploadPage = ({jwt}) => {
     setPreviewImage(URL.createObjectURL(e.target.files[0]))
     setImageFile(e.target.files[0])
   }
-  const [loading, setLoading] = useState(true)
   const handleUpload = (e) =>{
     e.preventDefault()
       // Formdata object to hold the image file to send to the server
