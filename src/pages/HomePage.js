@@ -26,6 +26,9 @@ const HomePage =({props}) => {
     })
   }, [])
 
+  useEffect(()=>{
+    document.title = "Nextagram"
+  })
   if (loading) {
     return (
     <LoadingIndicator width="100px" height="100px" color="	#89CFF0" />

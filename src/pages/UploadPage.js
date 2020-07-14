@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../App.css';
 import axios from 'axios';
 import { Button, Form, FormGroup, Input, FormText, Card, CardImg, CardTitle} from 'reactstrap';
@@ -33,6 +33,10 @@ const UploadPage = ({jwt}) => {
   
   const [previewImage, setPreviewImage] = useState(null)
   const [message, setMessage] = useState('')
+
+  useEffect(()=>{
+    document.title = "Nextagram"
+  })
     return(
       <>
       <div className="container d-flex flex-column">

@@ -24,7 +24,6 @@ const LoginForm = (props) => {
       }
     })
     .then(response => {
-      console.log(response)
       toast.success('Login Successful!', {
         position: "top-right",
         autoClose: 5000,

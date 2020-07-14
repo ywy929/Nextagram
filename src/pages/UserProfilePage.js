@@ -27,11 +27,12 @@ const UserProfilePage = () =>{
     .then(result => {
       setUserProfile(result.data)
       setLoading(false)
+      document.title = userProfile.username
     })
     .catch(error => {
       console.log('ERROR: ', error)
     })
-  }, [id])
+  }, [id, userProfile.username])
 
   if (loading) {
     return (
