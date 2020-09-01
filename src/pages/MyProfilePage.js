@@ -3,16 +3,12 @@ import axios from 'axios'
 import '../App.css';
 import LoadingIndicator from "../components/LoadingIndicator"
 import { Link } from 'react-router-dom';
-import LikeButton from "../components/LikeButton";
-import CommentInput from "../components/CommentInput";
-import CommentList from "../components/CommentList";
 
 const MyProfilePage = ({jwt, loggedIn}) =>{
 
   const [userPic, setUserPic] = useState([]) 
   const [userProfile, setUserProfile] = useState([])
-  const [like, setLike] = useState([])
-  const [commentLike, setCommentLike] = useState([])
+  // const [like, setLike] = useState([])
   const [loading, setLoading] = useState(true)
 
   let errorMsg = "Please login before continue."
@@ -43,37 +39,37 @@ const MyProfilePage = ({jwt, loggedIn}) =>{
 
   }, [jwt, userProfile.username, userProfile.id])
 
-  const toggleLike = (picId) =>{
-    axios({
-      method: 'POST',
-      url: `https://insta.nextacademy.com/api/v1/images/${picId}/toggle_like`,
-      headers:{'Authorization': `Bearer ${jwt}`}
-      })
-      .then(result => {
-        setLike(result.data)
+  // const toggleLike = (picId) =>{
+  //   axios({
+  //     method: 'POST',
+  //     url: `https://insta.nextacademy.com/api/v1/images/${picId}/toggle_like`,
+  //     headers:{'Authorization': `Bearer ${jwt}`}
+  //     })
+  //     .then(result => {
+  //       setLike(result.data)
         
-      })
-      .catch(error => {
-        console.log('ERROR: ', error)
-      })
+  //     })
+  //     .catch(error => {
+  //       console.log('ERROR: ', error)
+  //     })
 
-  }
+  // }
 
-  const toggleCommentLike = (commentId) =>{
-    axios({
-      method: 'POST',
-      url: `https://insta.nextacademy.com/api/v1/comments/${commentId}/toggle_like`,
-      headers:{'Authorization': `Bearer ${jwt}`}
-      })
-      .then(result => {
-        setCommentLike(result.data)
-        console.log(like)
-      })
-      .catch(error => {
-        console.log('ERROR: ', error)
-      })
+  // const toggleCommentLike = (commentId) =>{
+  //   axios({
+  //     method: 'POST',
+  //     url: `https://insta.nextacademy.com/api/v1/comments/${commentId}/toggle_like`,
+  //     headers:{'Authorization': `Bearer ${jwt}`}
+  //     })
+  //     .then(result => {
+  //       setCommentLike(result.data)
+  //       console.log(like)
+  //     })
+  //     .catch(error => {
+  //       console.log('ERROR: ', error)
+  //     })
 
-  }
+  // }
   if (loading) {
     return (
     <LoadingIndicator width="100px" height="100px" color="	#89CFF0" />
@@ -95,9 +91,6 @@ const MyProfilePage = ({jwt, loggedIn}) =>{
           return (   
             <div className="d-flex flex-column">
               <img id={pic.id} className="profileUserImg" src={pic.url} alt=""/>
-              <LikeButton picId={pic.id} toggleLike={toggleLike} like={like}/>
-              <CommentInput picId={pic.id}/>
-              <CommentList picId={pic.id} toggleCommentLike={toggleCommentLike} commentLike={commentLike}/>
             </div>
           )
         })}
