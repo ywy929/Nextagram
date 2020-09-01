@@ -9,11 +9,12 @@ const UserProfilePage = () =>{
   const [userPic, setUserPic] = useState([]) 
   const [userProfile, setUserProfile] = useState([]) 
   const [loading, setLoading] = useState(true)
-  
+
   useEffect(() => {
-    axios.get(`https://insta.nextacademy.com/api/v1/images?userId=${id}`)
+    axios.get(`http://127.0.0.1:5000/api/v1/images/${id}`)
     .then(result => {
       setUserPic(result.data)
+      console.log(result.data)
       setLoading(false)
     })
     .catch(error => {
@@ -23,7 +24,7 @@ const UserProfilePage = () =>{
   
   
   useEffect(() => {
-    axios.get(`https://insta.nextacademy.com/api/v1/users/${id}`)
+    axios.get(`http://127.0.0.1:5000/api/v1/users/${id}`)
     .then(result => {
       setUserProfile(result.data)
       setLoading(false)
@@ -48,7 +49,7 @@ const UserProfilePage = () =>{
       <div className="profileCarousel">
       {userPic.map((pic)=>{
         return (        
-          <img className="profileUserImg" src={pic} alt=""/>        
+          <img className="profileUserImg" src={pic.url} alt=""/>        
         )
       })}
       </div>
