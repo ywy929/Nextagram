@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import '../App.css';
-import UserImage from '../containers/UserImage';
 import {Button} from 'reactstrap';
 import LoadingIndicator from "../components/LoadingIndicator"
 import {useHistory} from 'react-router-dom';
