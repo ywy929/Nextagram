@@ -13,17 +13,19 @@ const SignUpForm = (props) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [delayUsername, setDelayUsername] = useState(null);
-  const [delayEmail, setDelayEmail] = useState(null);
+  const [delay, setDelay] = useState(null);
   const [usernameValid, setUsernameValid] = useState(false);
-  const [emailValid, setEmailValid] = useState(false);
 
   const signUp = (e) =>{
     e.preventDefault()
-    axios.post('http://127.0.0.1:5000/api/v1/users/sign_up', {
-      username: usernameInput,
-      email: email,
-      password: password
+    axios({
+      method: 'POST',
+      url: 'https://insta.nextacademy.com/api/v1/users/',
+      data: {
+        username: usernameInput,
+        email: email,
+        password: password
+      }
     })
     .then(response => {
       toast.success('Signup Successful!', {
@@ -60,7 +62,7 @@ const SignUpForm = (props) => {
     console.log("Making API call to check username!");
     axios
       .get(
-        `http://127.0.0.1:5000/api/v1/users/check_name?username=${usernameInput}`
+        `https://insta.nextacademy.com/api/v1/users/check_name?username=${usernameInput}`
       )
       .then(response => {
         console.log(response.data);
@@ -72,26 +74,9 @@ const SignUpForm = (props) => {
       });
   };
 
-  const checkEmail = emailInput => {
-    // this should only trigger after you stop typing for 500ms
-    console.log("Making API call to check email!");
-    axios
-      .get(
-        `http://127.0.0.1:5000/api/v1/users/check_email?email=${emailInput}`
-      )
-      .then(response => {
-        console.log(response.data);
-        if (response.data.valid) {
-          setEmailValid(true);
-        } else {
-          setEmailValid(false);
-        }
-      });
-  };
-
   const handleUsernameInput = e => {
     // clears queue so that the old keystrokes don't trigger axios call
-    clearTimeout(delayUsername);
+    clearTimeout(delay);
     const newUsername = e.target.value
     setUsernameInput(newUsername)
     // put each new keystroke into the queue
@@ -99,7 +84,7 @@ const SignUpForm = (props) => {
       checkUsername(newUsername);
     }, 500);
 
-    setDelayUsername(newDelay);
+    setDelay(newDelay);
   };
 
 
@@ -116,26 +101,16 @@ const SignUpForm = (props) => {
   
   let mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   const handleEmailInput = e => {
-    // clears queue so that the old keystrokes don't trigger axios call
-    clearTimeout(delayEmail);
     const newEmail = e.target.value
-    setEmail(newEmail)
-    // put each new keystroke into the queue
-    const newDelay = setTimeout(() => {      
-      checkEmail(newEmail);
-    }, 500);
-
-    setDelayEmail(newDelay);
+    setEmail(newEmail)    
   };
   let emailField
   if (email.length === 0){
-    emailField = <Input type="email" name="email" id="email" onChange={handleEmailInput} value={email} placeholder="" autoFocus />
-  } else if(!emailValid){
-    emailField = <><Input type="email" name="email" id="email" onChange={handleEmailInput} value={email} placeholder="" invalid autoFocus /><FormText color="danger">Email is taken!</FormText></>
-  } else if (!email.match(mailformat)){    
-    emailField = <><Input type="email" name="email" id="email" onChange={handleEmailInput} value={email} placeholder="" invalid autoFocus /><FormText color="danger">Invalid email format</FormText></>
-  } else if (email.match(mailformat)){    
-    emailField = <Input type="email" name="email" id="email" onChange={handleEmailInput} value={email} placeholder="" valid autoFocus />
+    emailField = <Input type="email" name="email" id="email" onChange={handleEmailInput} value={email} placeholder="" autofocus />
+  } else if(email.match(mailformat)){
+    emailField = <Input type="email" name="email" id="email" onChange={handleEmailInput} value={email} placeholder="" valid autofocus />
+  } else{
+    emailField = <Input type="email" name="email" id="email" onChange={handleEmailInput} value={email} placeholder="" invalid autofocus />
   }
 
   const handlePasswordInput = e => {

@@ -15,12 +15,14 @@ const LoginForm = (props) => {
   const [errorMsg, setErrorMsg] = useState(""); 
   const login = (e) =>{
     e.preventDefault()
-    axios.post('http://127.0.0.1:5000/api/v1/sessions/login', {
-      username: usernameInput,
-      password: password
-    }, {headers: {
-          'Content-Type': 'application/json',
-    }})
+    axios({
+      method: 'POST',
+      url: 'https://insta.nextacademy.com/api/v1/login',
+      data: {
+        username: usernameInput,
+        password: password
+      }
+    })
     .then(response => {
       toast.success('Login Successful!', {
         position: "top-right",
@@ -33,7 +35,7 @@ const LoginForm = (props) => {
       })
       toggleLogin()
       localStorage.setItem('jwt', response.data.auth_token)
-      redirect.push(`/profile`)
+      redirect.push(`/users/${response.data.user.id}`)
       setUsernameInput("")
       setPassword("")
       setErrorMsg("")
@@ -41,9 +43,8 @@ const LoginForm = (props) => {
     })
     .catch(error => {
       console.error(error.response) // so that we know what went wrong if the request failed
-      setErrorMsg(error.message)
+      setErrorMsg(error.response.data.message)
     })
-
   }
   return (
     <div>

@@ -8,7 +8,6 @@ import Navibar from './components/Navibar';
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignupForm';
 import UploadPage from './pages/UploadPage';
-import VideoChat from './components/VideoChat';
 
 function App() {
   const [loginModal, setLoginModal] = useState(false);
@@ -56,9 +55,6 @@ function App() {
         </Route>
         <Route path="/upload">
           <UploadPage jwt={jwt}></UploadPage>
-        </Route>
-        <Route path="/videocall">
-          <VideoChat/>
         </Route>
       </Switch>
     </>

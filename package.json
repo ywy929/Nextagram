@@ -14,9 +14,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-toastify": "^6.0.8",
-    "reactstrap": "^8.5.1",
-    "twilio": "^3.49.0",
-    "twilio-video": "^2.7.2"
+    "reactstrap": "^8.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,10 +36,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@iconify/icons-flat-color-icons": "^1.0.5",
-    "@iconify/icons-wpf": "^1.0.5",
-    "@iconify/react": "^1.1.3"
   }
 }
