@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Video from 'twilio-video';
 import Participant from './Participant';
 import { connect } from 'twilio-video';
 
