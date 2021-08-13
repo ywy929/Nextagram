@@ -7,75 +7,48 @@ import { Link } from 'react-router-dom';
 const MyProfilePage = ({jwt, loggedIn}) =>{
 
   const [userPic, setUserPic] = useState([]) 
-  const [userProfile, setUserProfile] = useState([])
-  // const [like, setLike] = useState([])
+  const [userProfile, setUserProfile] = useState([]) 
   const [loading, setLoading] = useState(true)
 
   let errorMsg = "Please login before continue."
   useEffect(() => {
-    axios.get(`http://127.0.0.1:5000/api/v1/users/me`,{
-    headers: {
-        'Authorization': `Bearer ${jwt}`
+    axios.get(`https://insta.nextacademy.com/api/v1/users/me`,{
+      headers: {
+        'Authorization': `bearer ${jwt}`
       }
     })
-      .then(result => {
-        setUserProfile(result.data)
-        document.title = userProfile.username
-        setLoading(false)
-      
-    axios.get(`http://127.0.0.1:5000/api/v1/images/${userProfile.id}`)
-      .then(response => {
-        setUserPic(response.data)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.log('ERROR: ', error)
-      })
+    .then(result => {
+      setUserProfile(result.data)
+      document.title = userProfile.username
+      setLoading(false)
     })
     .catch(error => {
       console.log('ERROR: ', error)
       setLoading(false)
     })
+  }, [jwt, userProfile.username])
 
-  }, [jwt, userProfile.username, userProfile.id])
+  useEffect(() => {
+    axios.get(`https://insta.nextacademy.com/api/v1/images/me`,{
+      headers: {
+        'Authorization': `bearer ${jwt}`
+      }
+    })
+    .then(result => {
+      setUserPic(result.data)
+      setLoading(false)
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+    })
+  }, [jwt])
 
-  // const toggleLike = (picId) =>{
-  //   axios({
-  //     method: 'POST',
-  //     url: `https://insta.nextacademy.com/api/v1/images/${picId}/toggle_like`,
-  //     headers:{'Authorization': `Bearer ${jwt}`}
-  //     })
-  //     .then(result => {
-  //       setLike(result.data)
-        
-  //     })
-  //     .catch(error => {
-  //       console.log('ERROR: ', error)
-  //     })
-
-  // }
-
-  // const toggleCommentLike = (commentId) =>{
-  //   axios({
-  //     method: 'POST',
-  //     url: `https://insta.nextacademy.com/api/v1/comments/${commentId}/toggle_like`,
-  //     headers:{'Authorization': `Bearer ${jwt}`}
-  //     })
-  //     .then(result => {
-  //       setCommentLike(result.data)
-  //       console.log(like)
-  //     })
-  //     .catch(error => {
-  //       console.log('ERROR: ', error)
-  //     })
-
-  // }
+  
   if (loading) {
     return (
     <LoadingIndicator width="100px" height="100px" color="	#89CFF0" />
     )
   }
-
   return (
     <>
       <div style={{display: loggedIn ? "flex": "none"}} className="profileInfo">
@@ -88,10 +61,8 @@ const MyProfilePage = ({jwt, loggedIn}) =>{
       <div className="profileCarousel">
         <h1 style={{display: loggedIn ? "none": "inline"}}>{errorMsg}</h1>
         {userPic.map((pic)=>{
-          return (   
-            <div className="d-flex flex-column">
-              <img id={pic.id} className="profileUserImg" src={pic.url} alt=""/>
-            </div>
+          return (        
+            <img className="profileUserImg" src={pic} alt=""/>        
           )
         })}
       </div>
